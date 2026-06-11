@@ -1,0 +1,17 @@
+{
+    "name": "m-dev-acc/basic-php-framework",
+    "description": "A basic php framework",
+    "type": "project",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "src/Framework",
+            "App\\": "src/App"
+        }
+    },
+    "autoload-dev": {
+        "files": [
+            "src/Framework/helpers/debugging.php" 
+        ]
+    }
+}

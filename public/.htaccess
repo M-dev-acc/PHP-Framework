@@ -1,0 +1,28 @@
+# Route all requests through the front controller (index.php)
+# Wrapped in IfModule so Apache skips this block gracefully
+# if mod_rewrite is not enabled, instead of throwing a 500 error
+<IfModule mod_rewrite.c>
+
+    # Disable content negotiation — prevents Apache from guessing
+    # similar filenames (e.g. serving "about" when "about.html" exists)
+    # Disable directory listing — blocks file browser on folders
+    # that don't have an index file
+    Options -MultiViews -Indexes
+
+    # Enable the rewrite engine for this directory
+    RewriteEngine On
+
+    # Skip rewriting if the request matches a real file on disk
+    # (e.g. /css/app.css, /images/logo.png)
+    RewriteCond %{REQUEST_FILENAME} !-f
+
+    # Skip rewriting if the request matches a real directory on disk
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # If both conditions above are true (not a file, not a directory),
+    # forward the request to index.php
+    # QSA — append original query string (?id=1) to the rewritten URL
+    # L   — stop processing further rewrite rules after this one
+    RewriteRule ^ index.php [QSA,L]
+
+</IfModule>
