@@ -6,8 +6,9 @@ require __DIR__ . "/../../vendor/autoload.php";
 
 use Framework\App;
 use function App\Config\registerRoutes;
+use App\Config\Path;
 
-$app = new App();
+$app = new App(Path::SOURCE . "App/container-definitions.php");
 
 registerRoutes($app);
 
