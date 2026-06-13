@@ -29,18 +29,20 @@ class Router
         $path = $this->normalizePath($path);
         $method = strtoupper($method);
 
-         foreach ($this->routes as $route) {
+        foreach ($this->routes as $route) {
             if (
                 preg_match("#^{$route['path']}$#", $path) &&
                 $route['method'] == $method
             ) {
                 continue;
             }
-
             [$class, $function] = $route['controller'];
+            $controller = new $class();
             $parameters = [];
 
-            call_user_func_array([$class, $function], $parameters);
+            call_user_func_array([$controller, $function], $parameters);
+
+            return;
         }
     }
 }

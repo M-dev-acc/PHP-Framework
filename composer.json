@@ -9,7 +9,9 @@
             "App\\": "src/App"
         },
         "files": [
-            "src/Framework/helpers/debugging.php" 
+            "src/Framework/helpers/debugging.php", 
+            "src/Framework/helpers/template_engine.php",
+            "src/App/Config/Routes.php"
         ]
     },
     "autoload-dev": {
