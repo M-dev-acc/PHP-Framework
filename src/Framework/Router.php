@@ -7,6 +7,7 @@ namespace Framework;
 class Router
 {
     private array $routes = [];
+    private array $middlewares = [];
 
     public function add(string $method, string $path, array $controller) : void {
         $path = $this->normalizePath($path);
@@ -40,9 +41,23 @@ class Router
             $controller = $container ? $container->resolve($class) : new $class();
             $parameters = [];
 
-            call_user_func_array([$controller, $function], $parameters);
+            $action = fn () => call_user_func_array([$controller, $function], $parameters);
+
+            foreach (array_reverse($this->middlewares) as $middleware) {
+                $middlewareInstance = $container 
+                    ? $container->resolve($middleware) 
+                    : new $middleware;
+                $action = fn() => $middlewareInstance->process($action);
+            }
+            
+            $action();
 
             return;
-        }
+        } 
+    }
+
+    public function addMiddleware(string $middleware) : void {
+        $this->middlewares[] = $middleware;
+
     }
 }
