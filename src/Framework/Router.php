@@ -32,8 +32,8 @@ class Router
 
         foreach ($this->routes as $route) {
             if (
-                preg_match("#^{$route['path']}$#", $path) &&
-                $route['method'] == $method
+                !preg_match("#^{$route['path']}$#", $path) ||
+                $route['method'] !== $method
             ) {
                 continue;
             }
@@ -53,7 +53,9 @@ class Router
             $action();
 
             return;
-        } 
+        }
+
+        http_response_code(404);
     }
 
     public function addMiddleware(string $middleware) : void {
