@@ -14,4 +14,8 @@ class AuthController
     public function registerView() : void {
         echo $this->view->render('register.phtml', []);
     }
+
+    public function register() : void {
+        dd($_POST);
+    }
 }
