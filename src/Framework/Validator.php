@@ -33,7 +33,7 @@ class Validator{
         }
 
         if (count($errors)) {
-            throw new ValidationException($errors);
+            throw new ValidationException();
         }
     }
 }
