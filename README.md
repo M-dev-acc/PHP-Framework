@@ -1,5 +1,8 @@
 # PHP MVC Framework
 
+> [!WARNING]
+> This project is a personal learning exercise built to revisit and strengthen PHP fundamentals. It is **not intended for production use**.
+
 A lightweight MVC framework built from scratch in PHP 8.1+, without any third-party dependencies. Built to understand how core framework internals work — routing, dependency injection, middleware pipelines, templating, and validation.
 
 ---
