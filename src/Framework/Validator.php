@@ -16,18 +16,23 @@ class Validator{
 
     public function validate(array $formData, array $fields) : void {
         $errors = [];
+        $ruleParams = [];
         foreach ($fields as $field => $rules) {
             foreach ($rules as $rule) {
+                if(str_contains($rule, ':')){
+                    [$rule, $ruleParams] = explode(':', $rule);
+                    $ruleParams = explode(',', $ruleParams);
+                }
+
                 $ruleValidator = $this->rules[$rule];
 
-                if ($ruleValidator->validate($formData, $field, [])) {
+                if ($ruleValidator->validate($formData, $field, $ruleParams)) {
                     continue;
                 }
-                
                 $errors[$field][] = $ruleValidator->getMessage(
                     $formData,
                     $field,
-                    []
+                    $ruleParams
                 );
             }
         }
