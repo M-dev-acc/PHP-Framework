@@ -17,7 +17,7 @@ class TemplateEngine
     public function render(string $template, array $data) : string {
         extract($data, EXTR_SKIP);
         extract($this->globalTemplateData, EXTR_SKIP);
-
+        
         ob_start();
 
         include $this->resolve($template);
@@ -25,7 +25,7 @@ class TemplateEngine
         $output = ob_get_contents();
 
         ob_end_clean();
-
+            
         return $output;
     }
 

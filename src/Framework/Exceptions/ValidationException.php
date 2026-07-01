@@ -10,8 +10,11 @@ use Throwable;
 
 class ValidationException extends RuntimeException
 {
-    public function __construct(int $code = 422)
+
+    public function __construct(
+        public array $errors = [], 
+        int $code = 422)
     {
-        return parent::__construct(code: $code);
+        parent::__construct(code: $code);
     }
 }

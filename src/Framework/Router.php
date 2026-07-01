@@ -42,12 +42,12 @@ class Router
             $parameters = [];
 
             $action = fn () => call_user_func_array([$controller, $function], $parameters);
-
-            foreach (array_reverse($this->middlewares) as $middleware) {
+            foreach ($this->middlewares as $middleware) {
                 $middlewareInstance = $container 
                     ? $container->resolve($middleware) 
                     : new $middleware;
-                $action = fn() => $middlewareInstance->process($action);
+                $currentAction = $action;
+                $action = fn() => $middlewareInstance->process($currentAction);
             }
             
             $action();

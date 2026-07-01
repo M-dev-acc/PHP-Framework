@@ -23,7 +23,7 @@ class Validator{
                 if ($ruleValidator->validate($formData, $field, [])) {
                     continue;
                 }
-
+                
                 $errors[$field][] = $ruleValidator->getMessage(
                     $formData,
                     $field,
@@ -33,7 +33,7 @@ class Validator{
         }
 
         if (count($errors)) {
-            throw new ValidationException();
+            throw new ValidationException($errors);
         }
     }
 }
