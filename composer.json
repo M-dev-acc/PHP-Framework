@@ -20,5 +20,8 @@
         "files": [
             "src/Framework/helpers/debugging.php" 
         ]
+    },
+    "scripts": {
+        "vanilla" : "php console.php"
     }
 }
