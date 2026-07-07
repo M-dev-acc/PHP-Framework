@@ -7,8 +7,9 @@ namespace App\Config;
 use Framework\App;
 use App\Controllers\{HomeController, AuthController};
 
-function registerRoutes(App $app): void {
+function registerRoutes(App $app): void
+{
     $app->get('/', [HomeController::class, 'home']);
     $app->get('/register', [AuthController::class, 'registerView']);
     $app->post('/register', [AuthController::class, 'register']);
-}   
+}

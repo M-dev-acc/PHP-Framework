@@ -7,15 +7,16 @@ namespace App\Middlewares;
 use Framework\Contracts\MiddlewareInterface;
 use Framework\TemplateEngine;
 
-class TemplateDataMiddleware implements MiddlewareInterface 
+class TemplateDataMiddleware implements MiddlewareInterface
 {
     public function __construct(private TemplateEngine $view)
-    {}
+    {
+    }
 
-    public function process(callable $next) {
+    public function process(callable $next)
+    {
         $this->view->addGlobal('title', "Expense tracking app");
 
         $next();
     }
 }
-

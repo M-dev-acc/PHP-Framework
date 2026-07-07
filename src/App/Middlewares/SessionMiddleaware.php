@@ -22,7 +22,7 @@ class SessionMiddleaware implements MiddlewareInterface
         }
 
         session_start();
-        
+
         $next();
 
         session_write_close();

@@ -7,19 +7,22 @@ namespace Framework;
 use Framework\Contracts\RulesInterface;
 use Framework\Exceptions\ValidationException;
 
-class Validator{
+class Validator
+{
     private array $rules = [];
 
-    public function add(string $alias, RulesInterface $rule) : void {
+    public function add(string $alias, RulesInterface $rule): void
+    {
         $this->rules[$alias] = $rule;
     }
 
-    public function validate(array $formData, array $fields) : void {
+    public function validate(array $formData, array $fields): void
+    {
         $errors = [];
         $ruleParams = [];
         foreach ($fields as $field => $rules) {
             foreach ($rules as $rule) {
-                if(str_contains($rule, ':')){
+                if (str_contains($rule, ':')) {
                     [$rule, $ruleParams] = explode(':', $rule);
                     $ruleParams = explode(',', $ruleParams);
                 }

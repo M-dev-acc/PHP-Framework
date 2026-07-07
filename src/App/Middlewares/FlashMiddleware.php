@@ -11,9 +11,9 @@ use Override;
 class FlashMiddleware implements MiddlewareInterface
 {
     public function __construct(
-        private TemplateEngine $view 
-    )
-    {}
+        private TemplateEngine $view
+    ) {
+    }
 
     public function process(callable $next)
     {
@@ -25,4 +25,3 @@ class FlashMiddleware implements MiddlewareInterface
         $next();
     }
 }
-  

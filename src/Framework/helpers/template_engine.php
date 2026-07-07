@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 if (!function_exists('e')) {
-    function e(mixed $value) : string {
+    function e(mixed $value): string
+    {
         return htmlspecialchars((string) $value);
-    }    
+    }
 }
-

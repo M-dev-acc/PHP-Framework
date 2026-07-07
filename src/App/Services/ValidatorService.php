@@ -8,17 +8,17 @@ use Framework\Rules\{
     EmailRule,
     InRule,
     MatchRule,
-    RequiredRule, 
+    RequiredRule,
     MinRule,
     UrlRule
 };
 use Framework\Validator;
 
-class ValidatorService{
+class ValidatorService
+{
     public function __construct(
         private Validator $validator = new Validator(),
-    )
-    {
+    ) {
         $this->validator->add('required', new RequiredRule());
         $this->validator->add('email', new EmailRule());
         $this->validator->add('min', new MinRule());
@@ -27,7 +27,8 @@ class ValidatorService{
         $this->validator->add('match', new MatchRule());
     }
 
-    public function validateRegister(array $formData) : void {
+    public function validateRegister(array $formData): void
+    {
         $this->validator->validate($formData, [
             'email' => ['required', 'email'],
             'age' => ['required', 'min:18'],

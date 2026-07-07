@@ -11,15 +11,17 @@ class AuthController
 {
     public function __construct(
         private TemplateEngine $view,
-        private ValidatorService $validator,    
-    )
-    {}
+        private ValidatorService $validator,
+    ) {
+    }
 
-    public function registerView() : void {
+    public function registerView(): void
+    {
         echo $this->view->render('register.phtml', []);
     }
 
-    public function register() : void {
+    public function register(): void
+    {
         $this->validator->validateRegister($_POST);
     }
 }

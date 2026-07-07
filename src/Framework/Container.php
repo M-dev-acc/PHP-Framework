@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Framework;
 
-use ReflectionClass, ReflectionNamedType;
+use ReflectionClass;
+use ReflectionNamedType;
 use Framework\Exceptions\ContainerExceptions;
 
 class Container
@@ -12,11 +13,13 @@ class Container
     private array $definitions = [];
     private array $resolved = [];
 
-    public function addDefinitions(array $definitions) : void {
+    public function addDefinitions(array $definitions): void
+    {
         $this->definitions = [...$this->definitions, ...$definitions];
     }
 
-    public function resolve(string $className) : object  {
+    public function resolve(string $className): object
+    {
         $reflectionClass = new ReflectionClass($className);
         if (!$reflectionClass->isInstantiable()) {
             throw new ContainerExceptions("Class {$className} is not instantiable.");
@@ -24,13 +27,13 @@ class Container
         $constructor = $reflectionClass->getConstructor();
 
         if (!$constructor) {
-            return new $className;
+            return new $className();
         }
 
         $params = $constructor->getParameters();
 
         if (count($params) === 0) {
-            return new $className;     
+            return new $className();
         }
 
         $dependancies = [];
@@ -53,9 +56,10 @@ class Container
         return $reflectionClass->newInstanceArgs($dependancies);
     }
 
-    public function get(string $id) : mixed {
+    public function get(string $id): mixed
+    {
         if (!array_key_exists($id, $this->definitions)) {
-            throw new ContainerExceptions("Class {$id} does not exists in container."); 
+            throw new ContainerExceptions("Class {$id} does not exists in container.");
         }
 
         if (array_key_exists($id, $this->resolved)) {
@@ -70,4 +74,3 @@ class Container
         return $dependancy;
     }
 }
-

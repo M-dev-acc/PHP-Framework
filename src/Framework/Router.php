@@ -9,7 +9,8 @@ class Router
     private array $routes = [];
     private array $middlewares = [];
 
-    public function add(string $method, string $path, array $controller) : void {
+    public function add(string $method, string $path, array $controller): void
+    {
         $path = $this->normalizePath($path);
         $this->routes[] = [
             'path' => $path,
@@ -18,7 +19,8 @@ class Router
         ];
     }
 
-    public function normalizePath(string $path) : string {
+    public function normalizePath(string $path): string
+    {
         $path = trim($path, '/');
         $path = "/{$path}/";
         $path = preg_replace('#[/]{2,}#', '/', $path);
@@ -26,7 +28,8 @@ class Router
         return $path;
     }
 
-    public function dispatch(string $path, string $method, ?Container $container = null) : void {
+    public function dispatch(string $path, string $method, ?Container $container = null): void
+    {
         $path = $this->normalizePath($path);
         $method = strtoupper($method);
 
@@ -43,13 +46,13 @@ class Router
 
             $action = fn () => call_user_func_array([$controller, $function], $parameters);
             foreach ($this->middlewares as $middleware) {
-                $middlewareInstance = $container 
-                    ? $container->resolve($middleware) 
-                    : new $middleware;
+                $middlewareInstance = $container
+                    ? $container->resolve($middleware)
+                    : new $middleware();
                 $currentAction = $action;
-                $action = fn() => $middlewareInstance->process($currentAction);
+                $action = fn () => $middlewareInstance->process($currentAction);
             }
-            
+
             $action();
 
             return;
@@ -58,7 +61,8 @@ class Router
         http_response_code(404);
     }
 
-    public function addMiddleware(string $middleware) : void {
+    public function addMiddleware(string $middleware): void
+    {
         $this->middlewares[] = $middleware;
 
     }
