@@ -10,6 +10,7 @@ use App\Config\Path;
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(Path::ROOT);
+$dotenv->load();
 
 $app = new App(Path::SOURCE . "App/container-definitions.php");
 
