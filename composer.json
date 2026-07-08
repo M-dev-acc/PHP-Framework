@@ -2,7 +2,9 @@
     "name": "m-dev-acc/basic-php-framework",
     "description": "A basic php framework",
     "type": "project",
-    "require": {},
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    },
     "autoload": {
         "psr-4": {
             "Framework\\": "src/Framework",
