@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Framework;
 
-use PDO;
-use PDOException;
+use PDO, PDOException;
+use PDOStatement;
 
 class Database
 {
-    public PDO $connection;
+    private PDO $connection;
+    private PDOStatement $statement;
 
     public function __construct(
         string $driver, 
@@ -31,5 +32,16 @@ class Database
             die("Unable to connect to database.");
         }
 
+    }
+
+    public function query(string $query, array $params = []) : Database {
+        $this->statement = $this->connection->prepare($query);
+        $this->statement->execute($params);
+
+        return $this;
+    }
+
+    public function count() : mixed {
+        return $this->statement->fetchColumn();
     }
 }

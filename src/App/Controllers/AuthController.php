@@ -27,5 +27,10 @@ class AuthController
     public function register(): void
     {
         $this->validator->validateRegister($_POST);
+        $this->userService->checkEmailExists($_POST['email']);
+        
+        $this->userService->create($_POST);
+
+        redirect('/');
     }
 }
